@@ -8,10 +8,6 @@ module.exports = function(grunt) {
         }
       }
     },
-    reload: {
-        port: 35729,
-        liveReload: {}
-    },
     autoprefixer: {
       options: {
         browsers: ['last 2 version', 'ie 8']
@@ -40,7 +36,10 @@ module.exports = function(grunt) {
     watch: {
       css: {
         files: '**/*.sass',
-        tasks: ['sass', 'autoprefixer', 'reload']
+        tasks: ['sass', 'autoprefixer'],
+        options: {
+          livereload: true,
+        }
       }
     }
   });
@@ -48,9 +47,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-gh-pages');
-  grunt.loadNpmTasks('grunt-reload');
   grunt.loadNpmTasks('grunt-contrib-copy');
 
-  grunt.registerTask('default',['reload', 'watch']);
+  grunt.registerTask('default',['watch']);
   grunt.registerTask('deploy',['sass', 'autoprefixer', 'copy', 'gh-pages']);
 }
